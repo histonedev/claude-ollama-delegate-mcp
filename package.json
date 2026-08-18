@@ -10,13 +10,13 @@
     "delegation",
     "llm"
   ],
-  "homepage": "https://github.com/histonedev/ollama-mcp#readme",
+  "homepage": "https://github.com/histonedev/claude-ollama-delegate-mcp#readme",
   "bugs": {
-    "url": "https://github.com/histonedev/ollama-mcp/issues"
+    "url": "https://github.com/histonedev/claude-ollama-delegate-mcp/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/histonedev/ollama-mcp.git"
+    "url": "git+https://github.com/histonedev/claude-ollama-delegate-mcp.git"
   },
   "license": "MIT",
   "author": "histonedev",

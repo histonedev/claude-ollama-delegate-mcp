@@ -117,8 +117,8 @@ claude mcp add ollama --scope user -- claude-ollama-delegate-mcp
 ### From source
 
 ```bash
-git clone https://github.com/histonedev/ollama-mcp.git
-cd ollama-mcp
+git clone https://github.com/histonedev/claude-ollama-delegate-mcp.git
+cd claude-ollama-delegate-mcp
 npm install          # builds automatically via the prepare script
 claude mcp add ollama --scope user -- node "$(pwd)/dist/index.js"
 ```
@@ -458,7 +458,7 @@ on the MCP registration, which overrides the config files:
 claude mcp add ollama --scope user \
   --env OLLAMA_MCP_DELEGATION_MODE=ondemand \
   --env OLLAMA_MCP_ALLOWED_MODELS=qwen3.5:397b-cloud \
-  -- node /path/to/ollama-mcp/dist/index.js
+  -- node /path/to/claude-ollama-delegate-mcp/dist/index.js
 ```
 
 **Delegates inherit your filesystem.** They run as your user in the `cwd` you
