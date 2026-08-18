@@ -1,4 +1,8 @@
-# ollama-mcp
+# claude-ollama-delegate-mcp
+
+[![npm](https://img.shields.io/npm/v/claude-ollama-delegate-mcp)](https://www.npmjs.com/package/claude-ollama-delegate-mcp)
+[![node](https://img.shields.io/node/v/claude-ollama-delegate-mcp)](https://nodejs.org)
+[![license](https://img.shields.io/npm/l/claude-ollama-delegate-mcp)](LICENSE)
 
 Delegate tasks from an Anthropic-backed Claude Code session to **Ollama-backed**
 Claude Code sessions — without the two ever sharing environment variables.
@@ -16,7 +20,7 @@ in the same terminal.
 ┌────────────────────────────┐
 │  Claude Code (Opus)        │   your session, Anthropic credentials
 │                            │
-│   └─ mcp: ollama-mcp ──────┼──▶ spawn: claude -p   (fresh env)
+│   └─ mcp: ollama ──────────┼──▶ spawn: claude -p   (fresh env)
 └────────────────────────────┘         ANTHROPIC_BASE_URL=127.0.0.1:11434
                                        ANTHROPIC_AUTH_TOKEN=ollama
                                        → qwen3.5:397b-cloud
@@ -24,8 +28,30 @@ in the same terminal.
 
 ---
 
+## Quick start
+
+```bash
+# 1. Ollama running, Claude Code installed, at least one model pulled
+ollama pull qwen3.5:397b-cloud
+
+# 2. register the server
+claude mcp add ollama --scope user -- npx -y claude-ollama-delegate-mcp
+
+# 3. restart your Claude Code session
+```
+
+Then ask for delegation in plain language:
+
+> delegate this to ollama: summarise every exported symbol in src/
+
+By default the server only delegates **when you explicitly ask**. To let the
+orchestrator decide for itself, see [Delegation modes](#delegation-modes).
+
+---
+
 ## Contents
 
+- [Quick start](#quick-start)
 - [How it works](#how-it-works)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
