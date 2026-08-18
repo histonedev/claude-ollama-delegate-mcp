@@ -99,39 +99,46 @@ ollama list                                 # at least one model
 
 ## Installation
 
+### From npm (recommended)
+
+No clone or build required — `npx` fetches it on demand:
+
+```bash
+claude mcp add ollama --scope user -- npx -y claude-ollama-delegate-mcp
+```
+
+Or install it globally, which also puts the settings CLI on your `PATH`:
+
+```bash
+npm install -g claude-ollama-delegate-mcp
+claude mcp add ollama --scope user -- claude-ollama-delegate-mcp
+```
+
+### From source
+
 ```bash
 git clone https://github.com/histonedev/ollama-mcp.git
 cd ollama-mcp
 npm install          # builds automatically via the prepare script
-```
-
-Register it with Claude Code (use the absolute path to your clone):
-
-```bash
 claude mcp add ollama --scope user -- node "$(pwd)/dist/index.js"
 ```
 
-Scopes: `--scope user` makes it available in every project; `--scope project`
-writes to `.mcp.json` in the current repo and shares it with collaborators;
-`--scope local` keeps it to this machine and project.
+Run the settings CLI as `node dist/cli.js …`, or `npm link` to get
+`ollama-mcp-config` on your `PATH`.
 
-Confirm and restart:
+### Scopes
 
-```bash
-claude mcp list        # ollama: node /path/to/dist/index.js - ✔ Connected
-```
+`--scope user` makes it available in every project; `--scope project` writes to
+`.mcp.json` in the current repo and shares it with collaborators; `--scope local`
+keeps it to this machine and project.
 
-Restart your Claude Code session — the tool list is read at startup.
-
-Optionally put the settings CLI on your `PATH`:
+### Confirm
 
 ```bash
-npm link               # provides `ollama-mcp-config`
+claude mcp list        # ollama: ... - ✔ Connected
 ```
 
-Without `npm link`, run it as `node dist/cli.js …` from the clone.
-
----
+Then **restart your Claude Code session** — the tool list is read at startup.
 
 ## Configuration
 
@@ -481,6 +488,20 @@ CFG_PATH=/tmp/c.json CFG_CWD=/tmp node test/readonly.mjs   # config is read-only
 ```
 
 `npm test` runs the three that need no network.
+
+### Publishing a release
+
+```bash
+npm login                       # interactive, once per machine
+npm version patch               # or minor / major -- tags and bumps
+npm publish                     # prepare script builds first
+git push --follow-tags
+```
+
+The package is `claude-ollama-delegate-mcp` and ships only `dist/`, `README.md`
+and `LICENSE`. `publishConfig.access` is `public`, and `prepare` runs `tsc`
+before packing, so a stale `dist/` can never be published. Preview the tarball
+with `npm pack --dry-run` before shipping.
 
 ### Layout
 

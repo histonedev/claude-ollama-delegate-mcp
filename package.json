@@ -1,16 +1,37 @@
 {
-  "name": "ollama-mcp",
+  "name": "claude-ollama-delegate-mcp",
   "version": "1.0.0",
   "description": "MCP server that delegates tasks to Ollama-backed Claude Code sessions without leaking env vars into the parent session",
+  "keywords": [
+    "mcp",
+    "ollama",
+    "claude-code",
+    "model-context-protocol",
+    "delegation",
+    "llm"
+  ],
+  "homepage": "https://github.com/histonedev/ollama-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/histonedev/ollama-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/histonedev/ollama-mcp.git"
+  },
+  "license": "MIT",
+  "author": "histonedev",
   "type": "module",
+  "main": "dist/index.js",
   "bin": {
-    "ollama-mcp": "dist/index.js",
+    "claude-ollama-delegate-mcp": "dist/index.js",
     "ollama-mcp-config": "dist/cli.js"
   },
-  "main": "dist/index.js",
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -18,9 +39,6 @@
     "config": "node dist/cli.js",
     "prepare": "tsc",
     "test": "node test/env-unit.mjs && node test/quoting.mjs && node test/killtree-unit.mjs"
-  },
-  "engines": {
-    "node": ">=20"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
@@ -30,17 +48,7 @@
     "@types/node": "^22.0.0",
     "typescript": "^5.6.0"
   },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/histonedev/ollama-mcp.git"
-  },
-  "keywords": [
-    "mcp",
-    "ollama",
-    "claude-code",
-    "model-context-protocol",
-    "delegation",
-    "llm"
-  ]
+  "publishConfig": {
+    "access": "public"
+  }
 }
