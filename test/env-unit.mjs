@@ -1,0 +1,15 @@
+import { buildOllamaEnv } from "../dist/env.js";
+process.env.ANTHROPIC_API_KEY = "sk-leak-me";
+process.env.CLAUDE_CODE_SESSION_ID = "parent-session";
+process.env.AWS_SECRET_ACCESS_KEY = "aws-leak";
+const env = buildOllamaEnv("test-model:cloud");
+const keys = Object.keys(env);
+const leaked = keys.filter(k => ["ANTHROPIC_API_KEY","CLAUDE_CODE_SESSION_ID","AWS_SECRET_ACCESS_KEY"].includes(k));
+console.log("platform:", process.platform);
+console.log("child env keys:", keys.sort().join(", "));
+console.log("\nleaked secrets:", leaked.length ? leaked.join(", ") + "  <- FAIL" : "none  <- PASS");
+const need = process.platform === "win32" ? ["SystemRoot","PATH","USERPROFILE","TEMP"] : ["PATH","HOME"];
+const missing = need.filter(k => !keys.some(x => x.toUpperCase() === k.toUpperCase()));
+console.log("required platform vars present:", missing.length ? "MISSING " + missing.join(", ") : "yes  <- PASS");
+console.log("model wiring:", env.ANTHROPIC_DEFAULT_OPUS_MODEL === "test-model:cloud" && env.ANTHROPIC_AUTH_TOKEN === "ollama" ? "correct  <- PASS" : "WRONG");
+process.exit(leaked.length || missing.length ? 1 : 0);
