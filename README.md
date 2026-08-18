@@ -498,6 +498,12 @@ npm publish                     # prepare script builds first
 git push --follow-tags
 ```
 
+Run `npm publish` from a **real terminal**, not a script or a non-interactive
+shell. With WebAuthn/security-key 2FA the CLI completes the challenge by opening
+a browser; without a TTY it cannot, and falls back to demanding a TOTP code that
+a security key cannot produce (`npm error code EOTP`). For CI, use a granular
+access token with Bypass 2FA instead.
+
 The package is `claude-ollama-delegate-mcp` and ships only `dist/`, `README.md`
 and `LICENSE`. `publishConfig.access` is `public`, and `prepare` runs `tsc`
 before packing, so a stale `dist/` can never be published. Preview the tarball
